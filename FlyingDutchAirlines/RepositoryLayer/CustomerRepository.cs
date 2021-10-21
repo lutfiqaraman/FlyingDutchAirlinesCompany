@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlyingDutchAirlines.RepositoryLayer
 {
@@ -10,10 +7,16 @@ namespace FlyingDutchAirlines.RepositoryLayer
     {
         public bool CreateCustomer(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (IsInvalidCustomerName(name))
                 return false;
 
             return true;
+        }
+
+        private bool IsInvalidCustomerName(string name)
+        {
+            char[] notAllowCharacters = { '!', '@', '#', '$', '%', '&', '*'};
+            return string.IsNullOrEmpty(name) || name.Any(x => notAllowCharacters.Contains(x));
         }
     }
 }
